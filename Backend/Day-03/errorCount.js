@@ -1,8 +1,5 @@
-
-const request = require('supertest');
-const assert = require('assert');
 const express = require('express');
-
+const PORT = 8080;
 const app = express();
 let errorCount = 0;
 
@@ -24,4 +21,6 @@ app.get('/errorCount', function(req, res) {
   res.status(200).json({ errorCount });
 });
 
-module.exports = app;
+app.listen(PORT, (req, res) => {
+    console.log(`Server is running on PORT ${PORT}`)
+})

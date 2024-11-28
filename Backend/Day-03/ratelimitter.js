@@ -1,7 +1,7 @@
-const request = require('supertest');
-const assert = require('assert');
 const express = require('express');
 const app = express();
+const PORT = 8080;
+
 // You have been given an express server which has a few endpoints.
 // Your task is to create a global middleware (app.use) which will
 // rate limit the requests from a user to only 5 request per second
@@ -24,4 +24,6 @@ app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
 
-module.exports = app;
+app.listen(PORT, (req, res) => {
+    console.log(`Server is running on PORT ${PORT}`)
+})
