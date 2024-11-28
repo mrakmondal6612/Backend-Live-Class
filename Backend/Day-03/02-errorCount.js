@@ -1,6 +1,7 @@
 const express = require('express');
 const PORT = 8080;
 const app = express();
+
 let errorCount = 0;
 
 // You have been given an express server which has a few endpoints.
