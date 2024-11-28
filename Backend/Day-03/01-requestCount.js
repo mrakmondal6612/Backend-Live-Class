@@ -11,6 +11,7 @@ let requestCount = 0;
 
 app.get('/user', function (req, res) {
     res.status(200).json({ name: 'john' });
+    console.log("HI");
 });
 
 app.post('/user', function (req, res) {
