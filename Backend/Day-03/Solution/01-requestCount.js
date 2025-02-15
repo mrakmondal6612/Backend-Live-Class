@@ -16,12 +16,12 @@ const middleware = (req, res, next) => {
 
 app.use(middleware);
 
-app.get("/user", function (req, res) {
-  res.status(200).json({ name: "john" });
+app.get("/user",  function (req, res) {
+    res.status(200).json({ name: "john" });
 });
 
 app.post("/user", function (req, res) {
-  res.status(200).json({ msg: "created dummy user" });
+    res.status(200).json({ msg: "created dummy user" });
 });
 
 app.get("/requestCount", function (req, res) {
