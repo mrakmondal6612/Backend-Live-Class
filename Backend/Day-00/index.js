@@ -42,9 +42,10 @@ function cube(n) {
 }
 
 function sumOfSqure(a, b, calback){
-    let sqrre1 = calback(a);   // 1
-    let sqrre2 = calback(b);   // 4
-    return sqrre1+sqrre2;   // 1+ 4 = 5
+    // let sqrre1 = calback(a);   // 1
+    // let sqrre2 = calback(b);   // 4
+    // return sqrre1+sqrre2;   // 1+ 4 = 5
+    return calback(a) + calback(b);
 }
 
 let ans = sumOfSqure(1, 2, sqre);
