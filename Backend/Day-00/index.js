@@ -66,20 +66,42 @@
 // Filter
 
 // const n = num.filter(num => num % 2 === 0);
-// console.log(n); 
-
+// console.log(n);
 
 // const users = [
-//     { name: "Alice", age: 25 }, 
+//     { name: "Alice", age: 25 },
 //     { name: "Bob", age: 30 },
 //     { name: "Charlie", age: 35 }
 // ];
 
 // const olderUsers = users.filter(i => i.age >= 30);
-// console.log(olderUsers); 
+// console.log(olderUsers);
 // // Output: [{ name: "Charlie", age: 35 }]
 
+// Async Function
 
+// console.log("HI");
+// setTimeout(()=>{
+//     console.log("Hello")
+// },2000);
 
+// console.log("HI")
 
-// Async Function 
+const fetchJoke = () => {
+  fetch("https://official-joke-api.appspot.com/random_joke")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((joke) => {
+      console.log(`Joke: ${joke.setup}`);
+      console.log(`Punchline: ${joke.punchline}`);
+    })
+    .catch((error) => console.error("Error fetching joke:", error));
+};
+
+// Call the function
+fetchJoke();
+
