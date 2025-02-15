@@ -40,17 +40,31 @@ function sqre(n){
 function cube(n) {
   return n * n * n;
 }
-function sumOfSqure(a, b){
-    let sqrre1 = sqre(a);   // 1
-    let sqrre2 = sqre(b);   // 4
+
+function sumOfSqure(a, b, calback){
+    let sqrre1 = calback(a);   // 1
+    let sqrre2 = calback(b);   // 4
     return sqrre1+sqrre2;   // 1+ 4 = 5
 }
 
-function sumOfCube(a, b) {
-  let cube1 = cube(a); // 1
-  let cube2 = cube(b); // 4
-  return cube1 + cube2; // 1+ 4 = 5
-}
-// let ans = sumOfSqure(1, 2);
-let ans = sumOfCube(1, 2);
-console.log(ans);
+let ans = sumOfSqure(1, 2, sqre);
+console.log(ans)
+
+
+
+
+
+
+
+
+
+
+
+// function sumOfCube(a, b) {
+//   let cube1 = cube(a); // 1
+//   let cube2 = cube(b); // 4
+//   return cube1 + cube2; // 1+ 4 = 5
+// }
+// // let ans = sumOfSqure(1, 2);
+// let ans = sumOfCube(1, 2);
+// console.log(ans);
