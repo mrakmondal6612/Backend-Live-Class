@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("This Root Route");
+  res.send("This is Home Route");
 });
 app.get("/conver", (req, res) => {
   res.send("This Conver Route");
