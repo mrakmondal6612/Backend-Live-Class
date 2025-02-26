@@ -21,5 +21,5 @@ app.post("/sayHello", (req, res) => {
 });
 
 app.listen(8080, (req, res) => {
-  console.log("Server is running on 8080 PORT...");
+  console.log("Server is running on 8080 PORT.");
 });
