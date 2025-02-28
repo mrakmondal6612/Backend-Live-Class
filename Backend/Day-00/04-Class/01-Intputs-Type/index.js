@@ -3,6 +3,11 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("This is Home Route ");
+});
+
+
 app.get("/name", (req, res) => {
   res.send("Hi, I am Ajay");
 });
