@@ -32,5 +32,5 @@ app.post("/userList", (req, res) => {
 });
 
 app.listen(8080, (req, res) => {
-  console.log("server is running");
+  console.log("server is running on PORT 8080");
 });
