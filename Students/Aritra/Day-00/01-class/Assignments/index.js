@@ -18,6 +18,7 @@ app.get("/profile", (req, res) => {
   } else {
     res.status(400).send(" provide name and age.");
   }
+  console.log("hi")
 });
 
 app.listen(8080, () => {
