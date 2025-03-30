@@ -11,13 +11,14 @@ let errCount = 0;
 
 app.get("/user", function (req, res) {
   // Write your logic here 
-  // throw new Error({msg: "User not found"});
+  throw new Error({msg: "User not found"});
   // x=x/0;
   res.status(200).json({ name: "john" });
 });
 
 app.post("/user", function (req, res) {
 
+  throw new Error("User not found!");
   res.status(200).json({ msg: "created dummy user" });
 });
 
@@ -25,6 +26,12 @@ app.get("/errorCount", function (req, res) {
   res.status(200).json({ errCount });
 });
 
+// error handling middleware
+app.use((err, req, res, next) => {
+  errCount += 1;
+  res.status(404).send({ err: "Internal server Error!" });
+
+});
 
 app.listen(PORT, (req, res) => {
   console.log(`Server is running on PORT ${PORT}`);

@@ -2,28 +2,47 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 
-// You have been given an express server which has a few endpoints.
-// Your task is to create a global middleware (app.use) which will
-// rate limit the requests from a user to only 5 request per second
-// If a user sends more than 5 requests in a single second, the server
-// should block them with a 404.
-// User will be sending in their user id in the header as 'user-id'
-// You have been given a numberOfRequestsForUser object to start off with which
-// clears every two second
-
 let numberOfRequestsForUser = {};
-setInterval(() => {
-    numberOfRequestsForUser = {};
-}, 1000)
 
-app.get('/user', function(req, res) {
+// Reset request count every second
+setInterval(() => {
+  numberOfRequestsForUser = {};
+}, 1000);
+
+const rateLimiter = (req, res, next) => {
+  const userId = req.headers['user-id']; // Correct header key
+
+  if (!userId) {
+    return res.status(400).send("User ID is required");
+  }
+
+  if (numberOfRequestsForUser[userId]) {
+    numberOfRequestsForUser[userId]++;
+    if (numberOfRequestsForUser[userId] > 5) {
+      return res.status(429).send("Too Many Requests! Try again later.");
+    }
+  } else {
+    numberOfRequestsForUser[userId] = 1;
+  }
+
+  next();
+};
+
+app.use(rateLimiter);
+
+app.get('/user', (req, res) => {
+  console.log(numberOfRequestsForUser);
   res.status(200).json({ name: 'john' });
 });
 
-app.post('/user', function(req, res) {
+app.post('/user', (req, res) => {
   res.status(200).json({ msg: 'created dummy user' });
 });
 
-app.listen(PORT, (req, res) => {
-    console.log(`Server is running on PORT ${PORT}`)
-})
+app.get('/reqCount', (req, res) => {
+  res.status(200).json({ reqCount: numberOfRequestsForUser });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on PORT ${PORT}`);
+});
