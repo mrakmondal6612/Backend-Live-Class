@@ -30,32 +30,58 @@ function singJWT (username, password){
     const usernameRes = emailSchema.safeParse(username);
     const passwordRes = passSchema.safeParse(password);
     if(!usernameRes.success || !passwordRes.success) return null;
-    const token = "";
-    try{
-        token = jwt.sign({username}, JWT_Pass);
-    } catch(err){
-        console.log(err);
-        return null;
-    }
-    
+    const token = jwt.sign({username}, JWT_Pass);
     return token;
 }
 
+function userEsits(username){
+    for(let i=0; i<ALL_USER.length; i++){
+        if(ALL_USER[i].username === username) return true;
+    }
+    return false;
+}
+
+function loginUserExsits(username, password){
+    for(let i=0; i<ALL_USER.length; i++){
+        if(ALL_USER[i].username === username && ALL_USER[i].password === password) return true;
+    }
+    return false;
+}
 
 app.use(express.json());
 
-app.use("/", (req, res)=>{
-    res.send("Wellcome...!");
-})
+// app.use("/", (req, res)=>{
+//     res.send("Wellcome...!");
+// })
 
 app.post("/signup", (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
+    // console.log(username, password);
     const token = singJWT(username, password);
-    console.log(token)
-    res.status(200).json({
-        token
-    })
+    ALL_USER.push({username, password});
+    res.status(200).json({msg : "Account Created!"});
+})
+
+app.post("/signin", (req, res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    if(!loginUserExsits(username, password)){
+        res.status(403).json({msg: "User does not exit in the Memory !"});
+    }
+    const token = singJWT(username, password);
+    res.status(200).json({token});
+})
+
+
+app.get("/users", (req, res) =>{
+    const token = req.headers.authorization;
+        const DecodeRes = jwt.decode(token);
+        const username = DecodeRes.username;
+        if(!userEsits(username)){
+            res.status(403).json({msg: "Invalid Token !"});
+        }
+        res.status(200).json(ALL_USER);
 })
 
 
